@@ -144,6 +144,13 @@ public class DbSqlSessionFactory implements SessionFactory {
     addDatabaseSpecificStatement("mssql", "selectProcessInstanceWithVariablesByQueryCriteria", "selectProcessInstanceWithVariablesByQueryCriteria_mssql_or_db2");
     addDatabaseSpecificStatement("mssql", "selectHistoricProcessInstancesWithVariablesByQueryCriteria", "selectHistoricProcessInstancesWithVariablesByQueryCriteria_mssql_or_db2");
     addDatabaseSpecificStatement("mssql", "selectHistoricTaskInstancesWithVariablesByQueryCriteria", "selectHistoricTaskInstancesWithVariablesByQueryCriteria_mssql_or_db2");
+
+    // informix
+    databaseSpecificLimitBeforeStatements.put("informix", "");
+    databaseSpecificLimitAfterStatements.put("informix", "");
+    databaseSpecificLimitBetweenStatements.put("informix", "");
+    databaseOuterJoinLimitBetweenStatements.put("informix", "");
+    databaseSpecificOrderByStatements.put("informix", defaultOrderBy);
   }
   
   protected String databaseType;
