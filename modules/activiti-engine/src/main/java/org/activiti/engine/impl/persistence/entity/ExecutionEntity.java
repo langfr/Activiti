@@ -297,6 +297,7 @@ public class ExecutionEntity extends VariableScopeImpl implements ActivityExecut
 
     // initialize the lists of referenced objects (prevents db queries)
     variableInstances = new HashMap<String, VariableInstanceEntity>();
+    variableInstanceList  = new ArrayList<VariableInstanceEntity>();
     eventSubscriptions = new ArrayList<EventSubscriptionEntity>();
     jobs = new ArrayList<JobEntity>();
     tasks = new ArrayList<TaskEntity>();
@@ -474,10 +475,9 @@ public class ExecutionEntity extends VariableScopeImpl implements ActivityExecut
         // End the pruned executions if necessary.
         // Some recyclable executions are inactivated (joined executions)
         // Others are already ended (end activities)
-        if (!prunedExecution.isEnded()) {
-          log.debug("pruning execution {}", prunedExecution);
-          prunedExecution.remove();
-        }
+        
+        log.debug("pruning execution {}", prunedExecution);
+        prunedExecution.remove();
       }
 
       log.debug("activating the concurrent root {} as the single path of execution going forward", concurrentRoot);
