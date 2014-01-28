@@ -19,12 +19,13 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**
  * responsible for providing <activiti:annotation-driven/> support.
- *
+ * 
  * @author Josh Long
  * @since 5.3
  */
-public class ActivitiNamespaceHandler extends NamespaceHandlerSupport {
+public class NamespaceHandler extends NamespaceHandlerSupport {
 	public void init() {
-		registerBeanDefinitionParser("annotation-driven", new ActivitiAnnotationDrivenBeanDefinitionParser());
+		registerBeanDefinitionParser("annotation-driven",
+		    new AnnotationDrivenBeanDefinitionParser());
 	}
 }
