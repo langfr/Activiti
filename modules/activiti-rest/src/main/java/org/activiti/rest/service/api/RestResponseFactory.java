@@ -377,7 +377,7 @@ public class RestResponseFactory {
     if(taskId != null) {
       result.setUrl(securedResource.createFullResourceUrl(RestUrls.URL_TASK_COMMENT, taskId, commentId));
     } else if(processInstanceId != null) {
-      result.setUrl(securedResource.createFullResourceUrl(RestUrls.URL_PROCESS_INSTANCE_COMMENT, processInstanceId, commentId));
+      result.setUrl(securedResource.createFullResourceUrl(RestUrls.URL_HISTORIC_PROCESS_INSTANCE_COMMENT, processInstanceId, commentId));
     }
     return result;
   }
@@ -559,6 +559,7 @@ public class RestResponseFactory {
     result.setPriority(taskInstance.getPriority());
     result.setProcessDefinitionId(taskInstance.getProcessDefinitionId());
     result.setTenantId(taskInstance.getTenantId());
+    result.setCategory(taskInstance.getCategory());
     if (taskInstance.getProcessDefinitionId() != null) {
       result.setProcessDefinitionUrl(securedResource.createFullResourceUrl(RestUrls.URL_PROCESS_DEFINITION, taskInstance.getProcessDefinitionId()));
     }

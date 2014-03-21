@@ -10,31 +10,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.activiti.engine.impl.util;
 
-import java.util.Date;
+package org.activiti.explorer.ui.validator;
+
+import com.vaadin.data.validator.AbstractStringValidator;
 
 
 /**
- * @author Joram Barrez
+ * @author Frederik Heremans
  */
-public class ClockUtil {
-  
-  private volatile static Date CURRENT_TIME = null;
-  
-  public static void setCurrentTime(Date currentTime) {
-    ClockUtil.CURRENT_TIME = currentTime;
-  }
-  
-  public static void reset() {
-    ClockUtil.CURRENT_TIME = null;
-  } 
-  
-  public static Date getCurrentTime() {
-    if (CURRENT_TIME != null) {
-      return CURRENT_TIME;
-    }
-    return new Date();
+public class DoubleValidator extends AbstractStringValidator {
+
+  private static final long serialVersionUID = 8306001395582004472L;
+
+  public DoubleValidator(String errorMessage) {
+    super(errorMessage);
   }
 
+  @Override
+  protected boolean isValidString(String value) {
+    try {
+        Double.parseDouble(value);
+        return true;
+    } catch (Exception e) {
+        return false;
+    }
+  }
 }

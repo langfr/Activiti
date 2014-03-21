@@ -39,7 +39,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author Dave Syer
  * @author Frederik Heremans
  */
-public abstract class JobEntity implements Serializable, Job, PersistentObject, HasRevision {
+public abstract class JobEntity implements Job, PersistentObject, HasRevision, Serializable {
 
   public static final boolean DEFAULT_EXCLUSIVE = true;
   public static final int DEFAULT_RETRIES = 3;
@@ -105,6 +105,8 @@ public abstract class JobEntity implements Serializable, Job, PersistentObject, 
     if(Context.getProcessEngineConfiguration().getEventDispatcher().isEnabled()) {
     	Context.getProcessEngineConfiguration().getEventDispatcher().dispatchEvent(
     			ActivitiEventBuilder.createEntityEvent(ActivitiEventType.ENTITY_CREATED, this));
+    	Context.getProcessEngineConfiguration().getEventDispatcher().dispatchEvent(
+    			ActivitiEventBuilder.createEntityEvent(ActivitiEventType.ENTITY_INITIALIZED, this));
     }
   }
   
