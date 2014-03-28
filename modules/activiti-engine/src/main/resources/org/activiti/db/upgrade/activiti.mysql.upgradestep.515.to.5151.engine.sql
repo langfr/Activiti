@@ -1,14 +1,12 @@
-alter table ACT_RU_TASK 
-    add CATEGORY_ varchar(255);
-    
-alter table ACT_RU_EXECUTION drop foreign key ACT_FK_EXE_PROCDEF;  	
+#
+# Activiti 5.15 shipped with some broken DDL statements for MySQL 5.6+ concering timestamps with millisecond precision
+# If you are currently running on <= 5.14, simply execute the 5.15 and 5.15.1 update scripts.
+# They have some duplication, but your shema will be in a correct state afterwards
+# If you are currently running 5.15 on MySQL 5.6+ (by a sheer of luck of having data that didn't clash with the DDL),
+# execute the 5.15.1 upgrade script, and all bugs shipped in Activiti 5.15 around these timestamp problems have been solved.
+#
 
-alter table ACT_RU_EXECUTION drop index ACT_UNIQ_RU_BUS_KEY;  
-
-alter table ACT_RU_EXECUTION
-    add constraint ACT_FK_EXE_PROCDEF 
-    foreign key (PROC_DEF_ID_) 
-    references ACT_RE_PROCDEF (ID_);
+# Following statements are a duplication of the 5.15 updates. See above explanation why they need to be repeated. 
 
 #  
 # ACT-1867: MySQL DATETIME and TIMESTAMP precision
@@ -80,36 +78,5 @@ ALTER TABLE ACT_RU_EVENT_SUBSCR DROP COLUMN CREATED_;
 ALTER TABLE ACT_RU_EVENT_SUBSCR CHANGE CREATED_TEMP_ CREATED_ timestamp(3) not null DEFAULT CURRENT_TIMESTAMP(3);
 
 
-alter table ACT_RE_DEPLOYMENT 
-    add TENANT_ID_ varchar(255) default ''; 
-    
-alter table ACT_RE_PROCDEF 
-    add TENANT_ID_ varchar(255) default '';
-    
-alter table ACT_RU_EXECUTION
-    add TENANT_ID_ varchar(255) default '';    
-    
-alter table ACT_RU_TASK
-    add TENANT_ID_ varchar(255) default '';  
-    
-alter table ACT_RU_JOB
-    add TENANT_ID_ varchar(255) default ''; 
-    
-alter table ACT_RE_MODEL
-    add TENANT_ID_ varchar(255) default '';   
-    
-alter table ACT_RU_EVENT_SUBSCR
-   add TENANT_ID_ varchar(255) default '';  
-   
-alter table ACT_RU_EVENT_SUBSCR
-   add PROC_DEF_ID_ varchar(64);          
-    
-alter table ACT_RE_PROCDEF
-    drop index ACT_UNIQ_PROCDEF;
-    
-alter table ACT_RE_PROCDEF
-    add constraint ACT_UNIQ_PROCDEF
-    unique (KEY_,VERSION_, TENANT_ID_);  
 
-
-update ACT_GE_PROPERTY set VALUE_ = '5.15' where NAME_ = 'schema.version';
+update ACT_GE_PROPERTY set VALUE_ = '5.15.1' where NAME_ = 'schema.version';
